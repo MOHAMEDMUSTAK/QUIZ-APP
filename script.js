@@ -15,26 +15,21 @@ const questions = [
     { question: "Who developed the theory of relativity?", answers: ["Newton", "Tesla", "Einstein", "Galileo"], correct: "Einstein" },
     { question: "What is the currency of the United Kingdom?", answers: ["Euro", "Dollar", "Pound", "Yen"], correct: "Pound" }
 ];
-
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
-
 let currentQuestionIndex = 0;
 let score = 0;
-
 function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
     nextButton.innerHTML = "Next";
     showQuestion();
 }
-
 function showQuestion() {
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
-
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
         button.innerText = answer;
@@ -46,25 +41,21 @@ function showQuestion() {
         answerButtons.appendChild(button);
     });
 }
-
 function resetState() {
     nextButton.style.display = "none";
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild);
     }
 }
-
 function selectAnswer(e) {
     const selectedBtn = e.target;
-    const isCorrect = selectedBtn.dataset.correct === "true";
-    
+    const isCorrect = selectedBtn.dataset.correct === "true";   
     if (isCorrect) {
         selectedBtn.classList.add("correct");
         score++;
     } else {
         selectedBtn.classList.add("wrong");
     }
-
     Array.from(answerButtons.children).forEach(button => {
         if (button.dataset.correct === "true") {
             button.classList.add("correct");
@@ -74,7 +65,6 @@ function selectAnswer(e) {
 
     nextButton.style.display = "block";
 }
-
 nextButton.addEventListener("click", () => {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -87,5 +77,4 @@ nextButton.addEventListener("click", () => {
         nextButton.addEventListener("click", startQuiz);
     }
 });
-
 startQuiz();
